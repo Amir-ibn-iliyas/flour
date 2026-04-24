@@ -147,9 +147,10 @@ export default function Features() {
   return (
     <section
       id="features"
-      className="relative overflow-hidden py-16 lg:py-8 px-4 sm:px-6 lg:px-10"
+      className="relative z-10 overflow-hidden py-16 lg:py-8 px-4 sm:px-6 lg:px-10 rounded-t-[2rem] lg:rounded-t-[3rem]"
       style={{
         background: 'var(--color-cream)',
+        boxShadow: '0 -20px 60px -10px rgba(0, 0, 0, 0.15)',
       }}
     >
       <div className="container-custom">

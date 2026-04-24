@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import Marquee from '../Marquee';
 
 /**
  * Hero — contained, elegant section with rounded dark image box,
@@ -91,9 +92,9 @@ export default function Hero() {
 
   return (
     <section
-    
+      ref={sectionRef}
       id="hero"
-      className="relative w-full pt-4 pb-16 lg:pb-12 overflow-hidden flex flex-col items-center bg-[var(--color-cream)]"
+      className="sticky top-0  w-full pt-4 pb-16 lg:pb-24 overflow-hidden flex flex-col items-center bg-[var(--color-cream)]"
     >
      
      
@@ -166,6 +167,7 @@ export default function Hero() {
 
         </div>
       </div>
+      {/* <Marquee /> */}
     </section>
   );
 }
