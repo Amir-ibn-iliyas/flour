@@ -53,7 +53,7 @@ export default function App() {
         <Marquee />
         <Features />
         {/* <Showcase /> */}
-        <About />
+        {/* <About /> */}
         <Contact />
         <Footer />
       </main>

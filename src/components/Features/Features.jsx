@@ -1,56 +1,143 @@
 import { useRef } from 'react';
 
 /**
- * Features — premium card grid showcasing product qualities.
- * Each card has a subtle hover lift and icon animation.
+ * Features — premium bento-grid layout with dark cards,
+ * decorative graphics, and asymmetric grid (3 top + 2 bottom).
  */
 
 const features = [
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </svg>
-    ),
     title: 'Artisan Quality',
-    description: 'Milled to perfection for ideal baking textures and flavors, mimicking traditional wheat flours with exceptional results.',
+    description:
+      'Milled to perfection for ideal baking textures and flavors — from sourdough to pastries, crafted for professional results.',
     stat: '100+',
     statLabel: 'Recipes tested',
-  },
-  {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <path d="M9 12l2 2 4-4" />
+    // Decorative: diagonal grid lines
+    graphic: (
+      <svg className="absolute bottom-0 right-0 w-full h-full opacity-[0.07] pointer-events-none" viewBox="0 0 400 400" fill="none">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <line key={i} x1={i * 40 - 80} y1="0" x2={i * 40 + 200} y2="400" stroke="currentColor" strokeWidth="1" />
+        ))}
+        {Array.from({ length: 12 }).map((_, i) => (
+          <line key={`h${i}`} x1="0" y1={i * 40} x2="400" y2={i * 40} stroke="currentColor" strokeWidth="0.5" />
+        ))}
       </svg>
     ),
+    // Decorative golden element
+    accent: (
+      <svg className="absolute bottom-8 right-8 w-24 h-24 lg:w-32 lg:h-32 opacity-30" viewBox="0 0 120 120" fill="none">
+        <path d="M60 10 L80 45 L110 50 L85 75 L90 110 L60 95 L30 110 L35 75 L10 50 L40 45 Z" stroke="var(--color-wheat)" strokeWidth="1.5" fill="none" />
+        <path d="M60 25 L72 50 L97 53 L78 72 L82 97 L60 85 L38 97 L42 72 L23 53 L48 50 Z" stroke="var(--color-wheat)" strokeWidth="1" fill="none" opacity="0.5" />
+      </svg>
+    ),
+  },
+  {
     title: '100% Gluten-Free',
-    description: 'Certified and rigorously tested in dedicated facilities to be completely free of cross-contamination.',
+    description:
+      'Certified and rigorously tested in dedicated facilities — completely free of cross-contamination.',
     stat: '0g',
     statLabel: 'Gluten content',
-  },
-  {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+    // Decorative: connection nodes/circuit style
+    graphic: (
+      <svg className="absolute bottom-0 right-0 w-full h-full opacity-[0.06] pointer-events-none" viewBox="0 0 300 300" fill="none">
+        <circle cx="150" cy="150" r="60" stroke="currentColor" strokeWidth="0.5" />
+        <circle cx="150" cy="150" r="90" stroke="currentColor" strokeWidth="0.5" />
+        <circle cx="150" cy="150" r="120" stroke="currentColor" strokeWidth="0.5" />
       </svg>
     ),
+    accent: (
+      <div className="absolute bottom-6 right-6 flex flex-col items-center gap-2">
+        <svg className="w-16 h-16 lg:w-20 lg:h-20 opacity-40" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="20" r="4" fill="var(--color-olive-light)" />
+          <circle cx="20" cy="50" r="4" fill="var(--color-olive-light)" />
+          <circle cx="60" cy="50" r="4" fill="var(--color-olive-light)" />
+          <circle cx="40" cy="70" r="4" fill="var(--color-wheat)" />
+          <line x1="40" y1="24" x2="20" y2="46" stroke="var(--color-olive-light)" strokeWidth="1.5" />
+          <line x1="40" y1="24" x2="60" y2="46" stroke="var(--color-olive-light)" strokeWidth="1.5" />
+          <line x1="20" y1="54" x2="40" y2="66" stroke="var(--color-wheat)" strokeWidth="1.5" />
+          <line x1="60" y1="54" x2="40" y2="66" stroke="var(--color-wheat)" strokeWidth="1.5" />
+        </svg>
+      </div>
+    ),
+  },
+  {
     title: 'Rich in Nutrients',
-    description: 'Packed with essential vitamins, minerals, and natural goodness from ancient grains and superfoods.',
+    description:
+      'Packed with essential vitamins, minerals, and natural goodness from ancient grains.',
     stat: '12+',
     statLabel: 'Vitamins & minerals',
+    graphic: null,
+    // Decorative: stacked cards illusion
+    accent: (
+      <div className="absolute bottom-4 right-4 flex gap-2">
+        <div className="w-16 h-20 lg:w-20 lg:h-24 rounded-lg opacity-25" style={{ background: 'var(--color-olive)', transform: 'rotate(-6deg) translateY(4px)' }} />
+        <div className="w-16 h-20 lg:w-20 lg:h-24 rounded-lg opacity-40" style={{ background: 'var(--color-olive-light)', transform: 'rotate(3deg)' }} />
+        <div className="w-16 h-20 lg:w-20 lg:h-24 rounded-lg opacity-20" style={{ background: 'var(--color-wheat)', transform: 'rotate(-2deg) translateY(2px)' }} />
+      </div>
+    ),
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-        <path d="M12 6v6l4 2" />
+    title: 'Modular & Versatile',
+    description:
+      'Choose from our range of specialty blends — almond, coconut, oat, and more. Mix and match for your perfect recipe.',
+    stat: '8+',
+    statLabel: 'Flour varieties',
+    // Decorative: geometric shape
+    graphic: (
+      <svg className="absolute bottom-0 right-0 w-full h-full opacity-[0.05] pointer-events-none" viewBox="0 0 400 300" fill="none">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <line key={i} x1={i * 60} y1="0" x2={i * 60} y2="300" stroke="currentColor" strokeWidth="0.5" />
+        ))}
       </svg>
     ),
-    title: 'Sustainable Sourcing',
-    description: 'Ethically sourced from sustainable farms that care for the earth and support local communities.',
+    accent: (
+      <div className="absolute bottom-6 right-6">
+        <svg className="w-28 h-28 lg:w-36 lg:h-36 opacity-30" viewBox="0 0 140 140" fill="none">
+          <rect x="20" y="20" width="50" height="50" rx="8" stroke="var(--color-wheat)" strokeWidth="1.5" fill="var(--color-wheat)" fillOpacity="0.1" transform="rotate(-12 45 45)" />
+          <rect x="50" y="40" width="50" height="50" rx="8" stroke="var(--color-olive-light)" strokeWidth="1.5" fill="var(--color-olive-light)" fillOpacity="0.15" transform="rotate(6 75 65)" />
+          <rect x="35" y="60" width="50" height="50" rx="8" stroke="var(--color-wheat)" strokeWidth="1" fill="var(--color-wheat)" fillOpacity="0.08" transform="rotate(-3 60 85)" />
+        </svg>
+      </div>
+    ),
+  },
+  {
+    title: 'Sustainable Sourcing & Efficiency',
+    description:
+      'Ethically sourced from sustainable farms that care for the earth — real-time traceability, transparent supply chains, and support for local communities.',
     stat: '50+',
     statLabel: 'Partner farms',
+    // Decorative: wave/chart lines
+    graphic: (
+      <svg className="absolute bottom-0 right-0 w-full h-full opacity-[0.06] pointer-events-none" viewBox="0 0 600 300" fill="none">
+        <line x1="0" y1="150" x2="600" y2="150" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 4" />
+        <line x1="0" y1="100" x2="600" y2="100" stroke="currentColor" strokeWidth="0.3" strokeDasharray="2 6" />
+        <line x1="0" y1="200" x2="600" y2="200" stroke="currentColor" strokeWidth="0.3" strokeDasharray="2 6" />
+      </svg>
+    ),
+    accent: (
+      <div className="absolute bottom-6 right-6 lg:bottom-8 lg:right-8">
+        <svg className="w-48 h-20 lg:w-64 lg:h-28 opacity-40" viewBox="0 0 260 80" fill="none">
+          {/* Chart line 1 — olive */}
+          <polyline
+            points="0,60 30,55 60,40 90,45 120,25 150,30 180,15 210,20 240,10 260,12"
+            stroke="var(--color-olive-light)"
+            strokeWidth="2"
+            fill="none"
+          />
+          {/* Chart line 2 — wheat */}
+          <polyline
+            points="0,70 30,65 60,60 90,50 120,55 150,40 180,45 210,35 240,30 260,25"
+            stroke="var(--color-wheat)"
+            strokeWidth="2"
+            fill="none"
+          />
+          {/* Dots on line 1 */}
+          <circle cx="120" cy="25" r="3" fill="var(--color-olive-light)" />
+          <circle cx="180" cy="15" r="3" fill="var(--color-olive-light)" />
+          <circle cx="260" cy="12" r="3" fill="var(--color-olive-light)" />
+        </svg>
+      </div>
+    ),
   },
 ];
 
@@ -60,15 +147,14 @@ export default function Features() {
   return (
     <section
       id="features"
-      className="relative overflow-hidden p-10"
+      className="relative overflow-hidden py-16 lg:py-8 px-4 sm:px-6 lg:px-10"
       style={{
-        // padding: 'var(--section-padding) 0',
         background: 'var(--color-cream)',
       }}
     >
       <div className="container-custom">
         {/* Section header */}
-        <div className="text-center mb-8 lg:mb-4">
+        <div className="text-center mb-12 lg:mb-8">
           <span
             className="reveal-up inline-block font-accent text-xs tracking-[0.3em] uppercase mb-4"
             style={{ color: 'var(--color-olive)' }}
@@ -87,79 +173,138 @@ export default function Features() {
             style={{ color: 'var(--color-bark-light)' }}
           >
             Experience the finest ingredients crafted for health-conscious
-            bakers, delivering <br className="hidden md:block" /> exceptional taste and texture every time.
+            bakers, delivering{' '}
+            <br className="hidden md:block" /> exceptional taste and texture
+            every time.
           </p>
         </div>
 
-        {/* Feature cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8" data-stagger>
-          {features.map((feature, i) => (
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5" data-stagger>
+          {/* Row 1 — 3 cards */}
+          {features.slice(0, 3).map((feature, i) => (
             <div
               key={i}
               ref={(el) => (cardsRef.current[i] = el)}
-              className="group relative rounded-2xl p-8 lg:p-10 h-full flex flex-col transition-all duration-500 hover:-translate-y-2"
+              className="group relative rounded-2xl lg:rounded-3xl p-8 lg:p-10 min-h-[280px] lg:min-h-[320px] flex flex-col overflow-hidden transition-all duration-500 hover:-translate-y-1"
               style={{
-                background: 'var(--color-white)',
-                border: '1px solid rgba(196, 169, 106, 0.2)',
-                boxShadow: '0 10px 40px -10px rgba(0,0,0,0.05)',
+                background: 'var(--color-olive-dark)',
+                border: '1px solid rgba(250, 247, 242, 0.06)',
               }}
               data-cursor="pointer"
             >
-              {/* Hover gradient overlay */}
+              {/* Background graphic */}
+              <div style={{ color: 'var(--color-cream)' }}>
+                {feature.graphic}
+              </div>
+
+              {/* Decorative accent */}
+              {feature.accent}
+
+              {/* Text content */}
+              <div className="relative z-10 flex flex-col h-full">
+                <h3
+                  className="font-display text-xl lg:text-2xl font-bold mb-3 leading-snug"
+                  style={{ color: 'var(--color-cream)' }}
+                >
+                  {feature.title}
+                </h3>
+                <p
+                  className="text-sm lg:text-[15px] leading-relaxed max-w-[280px]"
+                  style={{ color: 'rgba(250, 247, 242, 0.6)' }}
+                >
+                  {feature.description}
+                </p>
+
+                {/* Stat at bottom */}
+                <div className="mt-auto pt-6">
+                  <span
+                    className="font-display text-2xl lg:text-3xl font-bold"
+                    style={{ color: 'var(--color-wheat)' }}
+                  >
+                    {feature.stat}
+                  </span>
+                  <span
+                    className="block text-xs font-accent tracking-wider uppercase mt-1"
+                    style={{ color: 'rgba(250, 247, 242, 0.4)' }}
+                  >
+                    {feature.statLabel}
+                  </span>
+                </div>
+              </div>
+
+              {/* Hover glow */}
               <div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                className="absolute inset-0 rounded-2xl lg:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(91,107,74,0.03), rgba(196,169,106,0.06))',
+                  background:
+                    'radial-gradient(circle at 30% 30%, rgba(91, 107, 74, 0.08), transparent 60%)',
                 }}
               />
+            </div>
+          ))}
 
-              {/* Icon */}
+          {/* Row 2 — 2 cards spanning full width */}
+          {features.slice(3).map((feature, i) => (
+            <div
+              key={i + 3}
+              ref={(el) => (cardsRef.current[i + 3] = el)}
+              className={`group relative rounded-2xl lg:rounded-3xl p-8 lg:p-10 min-h-[260px] lg:min-h-[300px] flex flex-col overflow-hidden transition-all duration-500 hover:-translate-y-1 ${
+                i === 0 ? 'md:col-span-1 lg:col-span-1' : 'md:col-span-1 lg:col-span-2'
+              }`}
+              style={{
+                background: 'var(--color-olive-dark)',
+                border: '1px solid rgba(250, 247, 242, 0.06)',
+              }}
+              data-cursor="pointer"
+            >
+              {/* Background graphic */}
+              <div style={{ color: 'var(--color-cream)' }}>
+                {feature.graphic}
+              </div>
+
+              {/* Decorative accent */}
+              {feature.accent}
+
+              {/* Text content */}
+              <div className="relative z-10 flex flex-col h-full">
+                <h3
+                  className="font-display text-xl lg:text-2xl font-bold mb-3 leading-snug"
+                  style={{ color: 'var(--color-cream)' }}
+                >
+                  {feature.title}
+                </h3>
+                <p
+                  className="text-sm lg:text-[15px] leading-relaxed max-w-[340px]"
+                  style={{ color: 'rgba(250, 247, 242, 0.6)' }}
+                >
+                  {feature.description}
+                </p>
+
+                {/* Stat at bottom */}
+                <div className="mt-auto pt-6">
+                  <span
+                    className="font-display text-2xl lg:text-3xl font-bold"
+                    style={{ color: 'var(--color-wheat)' }}
+                  >
+                    {feature.stat}
+                  </span>
+                  <span
+                    className="block text-xs font-accent tracking-wider uppercase mt-1"
+                    style={{ color: 'rgba(250, 247, 242, 0.4)' }}
+                  >
+                    {feature.statLabel}
+                  </span>
+                </div>
+              </div>
+
+              {/* Hover glow */}
               <div
-                className="relative w-14 h-14 rounded-full flex items-center justify-center shrink-0 mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
+                className="absolute inset-0 rounded-2xl lg:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                 style={{
-                  background: 'rgba(91,107,74,0.08)',
-                  color: 'var(--color-olive)',
+                  background:
+                    'radial-gradient(circle at 30% 30%, rgba(91, 107, 74, 0.08), transparent 60%)',
                 }}
-              >
-                {feature.icon}
-              </div>
-
-              {/* Title */}
-              <h3
-                className="relative font-display text-xl font-semibold mb-3"
-                style={{ color: 'var(--color-bark)' }}
-              >
-                {feature.title}
-              </h3>
-
-              {/* Description */}
-              <p
-                className="relative text-sm leading-relaxed mb-6"
-                style={{ color: 'var(--color-bark-light)' }}
-              >
-                {feature.description}
-              </p>
-
-              {/* Stat */}
-              <div className="relative pt-4 mt-auto" style={{ borderTop: '1px solid var(--color-sand)' }}>
-                <span
-                  className="font-display text-2xl font-bold"
-                  style={{ color: 'var(--color-olive)' }}
-                >
-                  {feature.stat}
-                </span>
-                <span
-                  className="block text-xs font-accent tracking-wider uppercase mt-1"
-                  style={{ color: 'var(--color-bark-light)' }}
-                >
-                  {feature.statLabel}
-                </span>
-              </div>
-
-              {/* Corner accent */}
-              <div
-                className="absolute top-4 right-4 w-2 h-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: 'var(--color-wheat)' }}
               />
             </div>
           ))}
