@@ -49,13 +49,19 @@ export default function App() {
       {/* Main Site */}
       <main>
         <Navbar />
-        <Hero />
-        <Marquee />
+        {/* Hero + Marquee: pinned behind while Features slides over.
+            top-[-100px] allows the hero to scroll up to reveal the marquee before sticking. */}
+        <div className="sticky top-[-100px] z-0">
+          <Hero />
+          <Marquee />
+        </div>
         <Features />
         {/* <Showcase /> */}
         {/* <About /> */}
-        <Contact />
-        <Footer />
+        <div className="relative z-10" style={{ background: 'var(--color-cream)' }}>
+          <Contact />
+          <Footer />
+        </div>
       </main>
     </>
   );

@@ -236,12 +236,12 @@ a, button, input, textarea, select {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: var(--color-espresso);
+  background: transparent;
 }
 
 .preloader-logo {
   font-family: var(--font-display);
-  color: var(--color-cream);
+  color: var(--color-olive-light);
   font-size: clamp(2rem, 5vw, 4rem);
   letter-spacing: 0.15em;
   overflow: hidden;
@@ -259,14 +259,18 @@ a, button, input, textarea, select {
 .preloader-bar {
   height: 100%;
   width: 0%;
-  background: var(--color-wheat);
+  background: var(--color-wheat-light);
   border-radius: var(--radius-full);
 }
 
 .preloader-counter {
   font-family: var(--font-accent);
-  color: var(--color-wheat);
+  color: var(--color-wheat-light);
   font-size: 0.85rem;
   letter-spacing: 0.1em;
   margin-top: 16px;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
 }

@@ -120,7 +120,7 @@ export default function Navbar() {
               </svg>
             </div>
             <span
-              className="font-display text-lg lg:text-xl font-bold tracking-wider uppercase transition-colors duration-300"
+              className="font-accent text-lg lg:text-xl font-bold tracking-wider uppercase transition-colors duration-300"
               style={{ color: 'var(--color-bark)' }}
             >
               PureGrain
@@ -205,7 +205,7 @@ export default function Navbar() {
             ref={(el) => (navLinksRef.current[i] = el)}
             href={item.href}
             onClick={(e) => handleNavClick(e, item.href)}
-            className="font-display text-4xl font-light tracking-wider no-underline"
+            className="font-accent text-4xl font-light tracking-wider no-underline"
             style={{ color: 'var(--color-cream)' }}
           >
             {item.label}

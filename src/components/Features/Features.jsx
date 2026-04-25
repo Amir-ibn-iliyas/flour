@@ -1,4 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Features — premium bento-grid layout with dark cards,
@@ -142,35 +146,143 @@ const features = [
 ];
 
 export default function Features() {
+  const containerRef = useRef(null);
   const cardsRef = useRef([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Reveal header
+      gsap.from('.features-header > *', {
+        scrollTrigger: {
+          trigger: '.features-header',
+          start: 'top 90%',
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.15,
+        ease: 'power3.out'
+      });
+
+      // Reveal cards with stagger
+      gsap.from(cardsRef.current, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        },
+        y: 80,
+        opacity: 0,
+        scale: 0.95,
+        duration: 1.2,
+        stagger: 0.1,
+        ease: 'power4.out',
+      });
+
+      // Count up stats
+      cardsRef.current.forEach((card) => {
+        const stat = card.querySelector('.stat-number');
+        if (!stat) return;
+        
+        const finalVal = stat.innerText;
+        const isPlus = finalVal.includes('+');
+        const numVal = parseInt(finalVal);
+
+        gsap.from(stat, {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+          },
+          innerText: 0,
+          duration: 2,
+          snap: { innerText: 1 },
+          ease: 'power2.out',
+          onUpdate: function() {
+            stat.innerText = Math.floor(this.targets()[0].innerText) + (isPlus ? '+' : (finalVal.includes('g') ? 'g' : ''));
+          }
+        });
+      });
+
+      // Magnetic tilt effect
+      cardsRef.current.forEach((card) => {
+        const content = card.querySelector('.card-content');
+        const graphic = card.querySelector('.card-graphic');
+
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const xPercent = (x / rect.width - 0.5) * 2; // -1 to 1
+          const yPercent = (y / rect.height - 0.5) * 2; // -1 to 1
+
+          gsap.to(card, {
+            rotateY: xPercent * 5,
+            rotateX: -yPercent * 5,
+            duration: 0.5,
+            ease: 'power2.out'
+          });
+
+          gsap.to(content, {
+            x: xPercent * 10,
+            y: yPercent * 10,
+            duration: 0.5,
+            ease: 'power2.out'
+          });
+
+          if (graphic) {
+            gsap.to(graphic, {
+              x: xPercent * -20,
+              y: yPercent * -20,
+              duration: 0.5,
+              ease: 'power2.out'
+            });
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          gsap.to([card, content, graphic], {
+            rotateY: 0,
+            rotateX: 0,
+            x: 0,
+            y: 0,
+            duration: 0.8,
+            ease: 'elastic.out(1, 0.5)'
+          });
+        });
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
+      ref={containerRef}
       id="features"
-      className="relative z-10 overflow-hidden py-16 lg:py-8 px-4 sm:px-6 lg:px-10 rounded-t-[2rem] lg:rounded-t-[3rem]"
+      className="relative z-10 overflow-hidden py-16 lg:py-24 px-4 sm:px-6 lg:px-10 rounded-t-[2.5rem] lg:rounded-t-[4rem] perspective-1000"
       style={{
         background: 'var(--color-cream)',
-        boxShadow: '0 -20px 60px -10px rgba(0, 0, 0, 0.15)',
+        boxShadow: '0 -20px 80px -10px rgba(0, 0, 0, 0.12)',
       }}
     >
       <div className="container-custom">
         {/* Section header */}
-        <div className="text-center mb-12 lg:mb-8">
+        <div className="features-header text-center mb-16 lg:mb-20">
           <span
-            className="reveal-up inline-block font-accent text-xs tracking-[0.3em] uppercase mb-4"
+            className="inline-block font-accent text-xs tracking-[0.4em] uppercase mb-4 opacity-80"
             style={{ color: 'var(--color-olive)' }}
           >
             Why Choose Us
           </span>
           <h2
-            className="reveal-up font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-6"
+            className="font-accent text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-6"
             style={{ color: 'var(--color-bark)' }}
           >
             Why Choose{' '}
             <span style={{ color: 'var(--color-olive)' }}>PureGrain</span>?
           </h2>
           <p
-            className="reveal-up max-w-2xl mx-auto text-base lg:text-lg font-light leading-relaxed"
+            className="max-w-2xl mx-auto text-base lg:text-lg font-light leading-relaxed"
             style={{ color: 'var(--color-bark-light)' }}
           >
             Experience the finest ingredients crafted for health-conscious
@@ -195,17 +307,17 @@ export default function Features() {
               data-cursor="pointer"
             >
               {/* Background graphic */}
-              <div style={{ color: 'var(--color-cream)' }}>
+              <div className="card-graphic pointer-events-none" style={{ color: 'var(--color-cream)' }}>
                 {feature.graphic}
+                <div className="absolute inset-0">
+                  {feature.accent}
+                </div>
               </div>
 
-              {/* Decorative accent */}
-              {feature.accent}
-
               {/* Text content */}
-              <div className="relative z-10 flex flex-col h-full">
+              <div className="card-content relative z-10 flex flex-col h-full pointer-events-none">
                 <h3
-                  className="font-display text-xl lg:text-2xl font-bold mb-3 leading-snug"
+                  className="font-accent text-xl lg:text-2xl font-bold mb-3 leading-snug"
                   style={{ color: 'var(--color-cream)' }}
                 >
                   {feature.title}
@@ -220,7 +332,7 @@ export default function Features() {
                 {/* Stat at bottom */}
                 <div className="mt-auto pt-6">
                   <span
-                    className="font-display text-2xl lg:text-3xl font-bold"
+                    className="stat-number font-accent text-2xl lg:text-3xl font-bold"
                     style={{ color: 'var(--color-wheat)' }}
                   >
                     {feature.stat}
@@ -260,17 +372,17 @@ export default function Features() {
               data-cursor="pointer"
             >
               {/* Background graphic */}
-              <div style={{ color: 'var(--color-cream)' }}>
+              <div className="card-graphic pointer-events-none" style={{ color: 'var(--color-cream)' }}>
                 {feature.graphic}
+                <div className="absolute inset-0">
+                  {feature.accent}
+                </div>
               </div>
 
-              {/* Decorative accent */}
-              {feature.accent}
-
               {/* Text content */}
-              <div className="relative z-10 flex flex-col h-full">
+              <div className="card-content relative z-10 flex flex-col h-full pointer-events-none">
                 <h3
-                  className="font-display text-xl lg:text-2xl font-bold mb-3 leading-snug"
+                  className="font-accent text-xl lg:text-2xl font-bold mb-3 leading-snug"
                   style={{ color: 'var(--color-cream)' }}
                 >
                   {feature.title}
@@ -285,7 +397,7 @@ export default function Features() {
                 {/* Stat at bottom */}
                 <div className="mt-auto pt-6">
                   <span
-                    className="font-display text-2xl lg:text-3xl font-bold"
+                    className="stat-number font-accent text-2xl lg:text-3xl font-bold"
                     style={{ color: 'var(--color-wheat)' }}
                   >
                     {feature.stat}

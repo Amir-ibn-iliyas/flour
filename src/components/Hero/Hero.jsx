@@ -1,10 +1,9 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import Marquee from '../Marquee';
 
 /**
- * Hero — contained, elegant section with rounded dark image box,
- * inline text, and a continuous decorative line effect.
+ * Hero — full-viewport sticky section with rounded dark image box.
+ * Stays pinned while the next section scrolls over it.
  */
 export default function Hero() {
   const sectionRef = useRef(null);
@@ -13,7 +12,6 @@ export default function Hero() {
   const headingRef = useRef(null);
   const subRef = useRef(null);
   const ctaRef = useRef(null);
-  const lineRef = useRef(null);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 3.2 });
@@ -32,14 +30,6 @@ export default function Hero() {
       { opacity: 1 },
       { opacity: 0.75, duration: 1.5, ease: 'power2.out' },
       0.3
-    );
-
-    /* Decorative line wipe */
-    tl.fromTo(
-      lineRef.current,
-      { scaleX: 0 },
-      { scaleX: 1, duration: 1.5, ease: 'power3.inOut' },
-      0.8
     );
 
     /* Heading lines */
@@ -78,7 +68,7 @@ export default function Hero() {
       if (imageRef.current) {
         const scrollY = window.scrollY;
         gsap.set(imageRef.current, {
-          y: scrollY * 0.15,
+          y: scrollY * 0.001,
         });
       }
     };
@@ -94,13 +84,12 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="hero"
-      className="sticky top-0  w-full pt-4 pb-16 lg:pb-24 overflow-hidden flex flex-col items-center bg-[var(--color-cream)]"
+      className="relative w-full h-screen flex flex-col bg-[var(--color-cream)]"
     >
-     
-     
-      <div className="container-custom w-full relative z-10">
-        <div className=" mt-18 lg:mt-24 relative w-full min-h-[500px] lg:min-h-[500px] xl:min-h-[600px] rounded-[32px] overflow-hidden flex flex-col items-center justify-center text-center px-4 py-20">
-          
+      {/* Hero card */}
+      <div className="container-custom w-full flex-1 flex flex-col pt-24 lg:pt-28 pb-4">
+        <div className="relative w-full flex-1 rounded-[24px] lg:rounded-[32px] overflow-hidden flex flex-col items-center justify-center text-center px-4">
+
           {/* Background Image with parallax */}
           <div className="absolute inset-0 overflow-hidden">
             <img
@@ -111,22 +100,19 @@ export default function Hero() {
               style={{ transform: 'scale(1.2)' }}
             />
           </div>
-          
+
           {/* Dark green overlay */}
-          <div 
+          <div
             ref={overlayRef}
-            className="absolute inset-0" 
-            style={{ background: '#2A3C2B', opacity: 0.8 }} 
+            className="absolute inset-0"
+            style={{ background: '#2A3C2B', opacity: 0.8 }}
           />
-          
-          {/* The inner decorative line (white inside the box) */}
-          {/* <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white opacity-40 -translate-y-1/2 z-0 pointer-events-none" /> */}
 
           {/* Content */}
-          <div className="relative z-10 max-w-4xl flex flex-col items-center justify-center gap-8 lg:gap-10">
+          <div className="relative z-10 max-w-4xl flex flex-col items-center justify-center gap-6 lg:gap-8">
             {/* Heading */}
             <div ref={headingRef} className="overflow-hidden px-6 py-2 mx-auto inline-block">
-              <h1 className="font-display font-bold leading-[1.1] tracking-tight text-white text-[3rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5rem]">
+              <h1 className="font-accent font-bold leading-[1.1] tracking-tight text-white text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5rem]">
                 <span className="hero-line block" style={{ transform: 'translateY(60px)', opacity: 0 }}>
                   The Future of Baking is
                 </span>
@@ -167,7 +153,6 @@ export default function Hero() {
 
         </div>
       </div>
-      {/* <Marquee /> */}
     </section>
   );
 }

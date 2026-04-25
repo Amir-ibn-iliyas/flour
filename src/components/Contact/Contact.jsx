@@ -68,7 +68,7 @@ export default function Contact() {
     >
       <div className="container-custom">
         {/* Section header */}
-        <div className="mb-16 lg:mb-20">
+        <div className="mb-8">
           <span
             className="reveal-up inline-block font-accent text-xs tracking-[0.3em] uppercase mb-4"
             style={{ color: 'var(--color-olive)' }}
@@ -76,7 +76,7 @@ export default function Contact() {
             Get in Touch
           </span>
           <h2
-            className="reveal-up font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4"
+            className="reveal-up font-accent text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4"
             style={{ color: 'var(--color-bark)' }}
           >
             Let&apos;s Start a{' '}
@@ -160,7 +160,7 @@ export default function Contact() {
             <form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="rounded-2xl p-8 lg:p-12"
+              className="rounded-2xl p-8 lg:p-8"
               style={{
                 background: 'var(--color-white)',
                 border: '1px solid rgba(196, 169, 106, 0.2)',
@@ -168,7 +168,7 @@ export default function Contact() {
               }}
             >
               {/* Name */}
-              <div className="mb-6">
+              <div className="mb-4">
                 <label
                   htmlFor="contact-name"
                   className="block text-xs font-accent tracking-[0.15em] uppercase mb-2 transition-colors duration-300"
@@ -197,7 +197,7 @@ export default function Contact() {
               </div>
 
               {/* Email */}
-              <div className="mb-6">
+              <div className="mb-4">
                 <label
                   htmlFor="contact-email"
                   className="block text-xs font-accent tracking-[0.15em] uppercase mb-2 transition-colors duration-300"
@@ -226,7 +226,7 @@ export default function Contact() {
               </div>
 
               {/* Message */}
-              <div className="mb-8">
+              <div className="mb-4">
                 <label
                   htmlFor="contact-message"
                   className="block text-xs font-accent tracking-[0.15em] uppercase mb-2 transition-colors duration-300"

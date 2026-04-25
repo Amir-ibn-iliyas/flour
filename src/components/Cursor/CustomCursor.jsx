@@ -21,7 +21,7 @@ export default function CustomCursor({ cursorRef, cursorDotRef, cursorTextRef })
         {/* CTA text that appears on hover */}
         <span
           ref={cursorTextRef}
-          className="absolute inset-0 flex items-center justify-center font-accent text-[5px] tracking-widest uppercase opacity-0 scale-1"
+          className="absolute inset-0 flex items-center justify-center font-accent text-[5px] tracking-widest uppercase opacity-0 scale-2`"
           style={{ color: 'var(--color-cream)' }}
         >
           View

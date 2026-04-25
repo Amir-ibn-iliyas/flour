@@ -88,25 +88,25 @@ export default function Preloader({ onComplete }) {
       <div
         ref={curtainTopRef}
         className="absolute top-0 left-0 w-full h-1/2 z-10"
-        style={{ background: 'var(--color-espresso)' }}
+        style={{ background: 'var(--color-olive-dark)' }}
       />
       {/* Bottom curtain */}
       <div
         ref={curtainBottomRef}
         className="absolute bottom-0 left-0 w-full h-1/2 z-10"
-        style={{ background: 'var(--color-espresso)' }}
+        style={{ background: 'var(--color-olive-dark)' }}
       />
 
       {/* Content layer */}
       <div className="relative z-20 flex flex-col items-center">
         {/* Logo */}
         <div ref={logoRef} className="preloader-logo">
-          <span className="font-display tracking-[0.2em] font-light">
+          <span className="font-accent tracking-[0.2em] font-light">
             PURE
           </span>
           <span
-            className="font-display tracking-[0.2em] font-bold"
-            style={{ color: 'var(--color-wheat)' }}
+            className="font-accent tracking-[0.2em] font-bold"
+            style={{ color: 'var(--color-wheat-light)' }}
           >
             GRAIN
           </span>
