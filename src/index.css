@@ -270,7 +270,3 @@ a, button, input, textarea, select {
   letter-spacing: 0.1em;
   margin-top: 16px;
 }
-
-.perspective-1000 {
-  perspective: 1000px;
-}
