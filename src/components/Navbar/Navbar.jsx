@@ -94,15 +94,12 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        className={`fixed top-4 lg:top-6 left-4 bg-white/80 right-4 mx-auto max-w-[1260px] z-[100] transition-all duration-500 ease-in-out rounded-2xl border px-6 lg:px-8 ${
+        className={`fixed top-4 lg:top-6 left-4 right-4 mx-auto max-w-[1270px] z-[100] transition-all duration-500 ease-in-out rounded-2xl border px-6 lg:px-8 backdrop-blur-xl bg-[var(--color-cream)]/70 ${
           hidden ? '-translate-y-[150%] opacity-0' : 'translate-y-0 opacity-100'
         }`}
         style={{
-          background: 'rgba(250, 247, 242, 0.85)',
-          backdropFilter: 'blur(16px) saturate(1.2)',
-          WebkitBackdropFilter: 'blur(16px) saturate(1.2)',
-          borderColor: 'rgba(58, 46, 34, 0.08)',
-          boxShadow: '0 20px 40px -10px rgba(0,0,0,0.08)',
+          borderColor: 'rgba(58, 46, 34, 0.8)',
+          boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)',
         }}
         id="navbar"
       >
