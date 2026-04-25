@@ -56,8 +56,7 @@ export default function App() {
           <Marquee />
         </div>
         <Features />
-        {/* <Showcase /> */}
-        {/* <About /> */}
+    
         <div className="relative z-10" style={{ background: 'var(--color-cream)' }}>
           <Contact />
           <Footer />
