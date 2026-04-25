@@ -271,38 +271,47 @@ a, button, input, textarea, select {
   margin-top: 16px;
 }
 /* ===== Interactive Bento Grid ===== */
-.bento-grid-interactive {
-  display: grid;
-  /* Columns are handled by Tailwind (grid-cols-1/2/3) on mobile/tablet */
-  /* Expansion logic is only enabled on desktop via the media query below */
+
+/* Row 1: 3-column grid */
+.bento-row-3 {
   transition: grid-template-columns 0.7s var(--ease-out-expo);
 }
 
-/* On desktop, we handle the expansion logic */
+/* Row 2: 2-column grid */
+.bento-row-2 {
+  transition: grid-template-columns 0.7s var(--ease-out-expo);
+}
+
 @media (min-width: 1024px) {
-  .bento-grid-interactive {
+  /* Row 1 — default 3 equal columns */
+  .bento-row-3 {
     grid-template-columns: 1fr 1fr 1fr;
   }
-  .bento-grid-interactive:has(.bento-card:nth-child(1):hover) {
-    grid-template-columns: 1.5fr 0.75fr 0.75fr;
+  .bento-row-3:has(.bento-card:nth-child(1):hover) {
+    grid-template-columns: 1.6fr 0.7fr 0.7fr;
   }
-  .bento-grid-interactive:has(.bento-card:nth-child(2):hover) {
-    grid-template-columns: 0.75fr 1.5fr 0.75fr;
+  .bento-row-3:has(.bento-card:nth-child(2):hover) {
+    grid-template-columns: 0.7fr 1.6fr 0.7fr;
   }
-  .bento-grid-interactive:has(.bento-card:nth-child(3):hover) {
-    grid-template-columns: 0.75fr 0.75fr 1.5fr;
+  .bento-row-3:has(.bento-card:nth-child(3):hover) {
+    grid-template-columns: 0.7fr 0.7fr 1.6fr;
   }
-  /* For row 2 cards (index 4 and 5) */
-  .bento-grid-interactive:has(.bento-card:nth-child(4):hover) {
-    grid-template-columns: 1.5fr 0.75fr 0.75fr;
+
+  /* Row 2 — default 2 equal columns */
+  .bento-row-2 {
+    grid-template-columns: 1fr 1fr;
   }
-  .bento-grid-interactive:has(.bento-card:nth-child(5):hover) {
-    grid-template-columns: 0.75fr 1.1fr 1.1fr; /* Card 5 spans 2 cols, so we expand the remaining ones */
+  .bento-row-2:has(.bento-card:nth-child(1):hover) {
+    grid-template-columns: 1.5fr 0.5fr;
+  }
+  .bento-row-2:has(.bento-card:nth-child(2):hover) {
+    grid-template-columns: 0.5fr 1.5fr;
   }
 }
 
-/* Card hover focus effect */
-.bento-grid-interactive:hover .bento-card:not(:hover) {
+/* Dim non-hovered siblings within the SAME row */
+.bento-row-3:hover .bento-card:not(:hover),
+.bento-row-2:hover .bento-card:not(:hover) {
   opacity: 0.6;
   filter: grayscale(0.2) brightness(0.8);
   transform: scale(0.98);

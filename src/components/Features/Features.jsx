@@ -180,9 +180,8 @@ export default function Features() {
           </p>
         </div>
 
-        {/* Bento Grid — Interactive expansion on hover */}
-        <div className="bento-grid-interactive grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5" data-stagger>
-          {/* Row 1 — 3 cards */}
+        {/* Bento Row 1 — 3 cards with independent expansion */}
+        <div className="bento-row-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 mb-4 lg:mb-5" data-stagger>
           {features.slice(0, 3).map((feature, i) => (
             <div
               key={i}
@@ -244,15 +243,15 @@ export default function Features() {
               />
             </div>
           ))}
+        </div>
 
-          {/* Row 2 — 2 cards spanning full width */}
+        {/* Bento Row 2 — 2 cards with independent expansion */}
+        <div className="bento-row-2 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5" data-stagger>
           {features.slice(3).map((feature, i) => (
             <div
               key={i + 3}
               ref={(el) => (cardsRef.current[i + 3] = el)}
-              className={`bento-card group relative rounded-2xl lg:rounded-3xl p-8 lg:p-10 min-h-[260px] lg:min-h-[300px] flex flex-col overflow-hidden ${
-                i === 0 ? 'md:col-span-1 lg:col-span-1' : 'md:col-span-1 lg:col-span-2'
-              }`}
+              className="bento-card group relative rounded-2xl lg:rounded-3xl p-8 lg:p-10 min-h-[260px] lg:min-h-[300px] flex flex-col overflow-hidden"
               style={{
                 background: 'var(--color-olive-dark)',
                 border: '1px solid rgba(250, 247, 242, 0.06)',
