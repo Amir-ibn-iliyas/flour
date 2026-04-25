@@ -60,7 +60,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden p-10"
+      className="relative overflow-hidden p-4 lg:p-10 "
       style={{
         // padding: 'var(--section-padding) 0',
         background: 'var(--color-cream)',

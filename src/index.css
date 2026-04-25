@@ -273,12 +273,16 @@ a, button, input, textarea, select {
 /* ===== Interactive Bento Grid ===== */
 .bento-grid-interactive {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  /* Columns are handled by Tailwind (grid-cols-1/2/3) on mobile/tablet */
+  /* Expansion logic is only enabled on desktop via the media query below */
   transition: grid-template-columns 0.7s var(--ease-out-expo);
 }
 
 /* On desktop, we handle the expansion logic */
 @media (min-width: 1024px) {
+  .bento-grid-interactive {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
   .bento-grid-interactive:has(.bento-card:nth-child(1):hover) {
     grid-template-columns: 1.5fr 0.75fr 0.75fr;
   }
