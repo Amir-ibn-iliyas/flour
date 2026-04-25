@@ -180,14 +180,14 @@ export default function Features() {
           </p>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5" data-stagger>
+        {/* Bento Grid — Interactive expansion on hover */}
+        <div className="bento-grid-interactive grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5" data-stagger>
           {/* Row 1 — 3 cards */}
           {features.slice(0, 3).map((feature, i) => (
             <div
               key={i}
               ref={(el) => (cardsRef.current[i] = el)}
-              className="group relative rounded-2xl lg:rounded-3xl p-8 lg:p-10 min-h-[280px] lg:min-h-[320px] flex flex-col overflow-hidden transition-all duration-500 hover:-translate-y-1"
+              className="bento-card group relative rounded-2xl lg:rounded-3xl p-8 lg:p-10 min-h-[280px] lg:min-h-[320px] flex flex-col overflow-hidden"
               style={{
                 background: 'var(--color-olive-dark)',
                 border: '1px solid rgba(250, 247, 242, 0.06)',
@@ -250,7 +250,7 @@ export default function Features() {
             <div
               key={i + 3}
               ref={(el) => (cardsRef.current[i + 3] = el)}
-              className={`group relative rounded-2xl lg:rounded-3xl p-8 lg:p-10 min-h-[260px] lg:min-h-[300px] flex flex-col overflow-hidden transition-all duration-500 hover:-translate-y-1 ${
+              className={`bento-card group relative rounded-2xl lg:rounded-3xl p-8 lg:p-10 min-h-[260px] lg:min-h-[300px] flex flex-col overflow-hidden ${
                 i === 0 ? 'md:col-span-1 lg:col-span-1' : 'md:col-span-1 lg:col-span-2'
               }`}
               style={{
